@@ -1,251 +1,263 @@
-# Bird Species Recognition using Machine Learning
+# BIRD SPECIES RECOGNITION
+Bird Species Recognition merupakan proyek Machine Learning berbasis Python yang mampu mengidentifikasi spesies burung berdasarkan rekaman suara (audio berformat .mp3).
+Proyek ini menggunakan algoritma Random Forest Classifier dan metode ekstraksi fitur MFCC (Mel Frequency Cepstral Coefficients) untuk mengenali pola suara dari berbagai spesies burung.
+---
 
-## Deskripsi Proyek
-
-Bird Species Recognition merupakan proyek Machine Learning yang dibuat untuk mengidentifikasi spesies burung berdasarkan rekaman suara (audio).
-
-Program ini menggunakan:
-- Python 3.11.9
-- Librosa (Audio Processing)
-- MFCC (Mel Frequency Cepstral Coefficients)
-- Random Forest / K-Nearest Neighbors (Machine Learning Classification)
-- Joblib (Model Saving)
-- NumPy
-- Scikit-Learn
-
-Program mampu:
-- Mengidentifikasi 12 spesies burung berdasarkan suara.
-- Memprediksi spesies dari audio baru.
-- Menampilkan confidence score hasil prediksi.
-- Mendeteksi audio yang tidak dikenali (Unknown Bird Species).
+## Fitur Program
+Program ini memiliki beberapa fitur, di antaranya:
+- Klasifikasi spesies burung berdasarkan suara.
+- Mendukung 12 spesies burung.
+- Ekstraksi fitur audio menggunakan MFCC.
+- Menggunakan algoritma Random Forest Classifier.
+- Menampilkan Confidence Score (tingkat keyakinan prediksi).
+- Mendeteksi spesies burung yang tidak terdapat pada dataset.
+- Validasi dataset audio secara otomatis.
+- Evaluasi model menggunakan Cross Validation.
+- Menampilkan Classification Report.
+- Menampilkan Confusion Matrix.
+- Mudah digunakan melalui terminal (Command Prompt).
 ---
 
 ## Daftar Spesies Burung
-1. Grallaria cochabambae
-2. Grallaria saltuensis
-3. Grallaria saturata
-4. Grallaria spatiator
-5. Penelope bridgesi
-6. Pyriglena similis
-7. Pyriglena maura
-8. Sitta insularis
-9. Basileuterus delattrii
-10. Phylloscopus nesophilus
-11. Pitta concinna
-12. Larvivora namiyei
+| Nama Ilmiah | Nama Umum |
+|------------|------------|
+| Grallaria_cochabambae | Bolivian Antpitta |
+| Grallaria_saltuensis | Perija Antpitta |
+| Grallaria_saturata | Equatorial Antpitta |
+| Grallaria_spatiator | Sierra Nevada Antpitta |
+| Penelope_bridgesi | Yungas Guan |
+| Pyriglena_similis | Tapajos Fire-eye |
+| Pyriglena_maura | Western Fire-eye |
+| Sitta_insularis | Bahama Nuthatch |
+| Basileuterus_delattrii | Chestnut-capped Warbler |
+| Phylloscopus_nesophilus | Sulawesi Leaf Warbler |
+| Pitta_concinna | Ornate Pitta |
+| Larvivora_namiyei | Okinawa Robin |
 ---
 
-## Struktur Folder
+## Struktur Folder Proyek
+```
 Bird Species Recognition Project
+│
+├── Dataset_Audio
+│   ├── Grallaria_cochabambae
+│   ├── Grallaria_saltuensis
+│   ├── Grallaria_saturata
+│   ├── Grallaria_spatiator
+│   ├── Penelope_bridgesi
+│   ├── Pyriglena_similis
+│   ├── Pyriglena_maura
+│   ├── Sitta_insularis
+│   ├── Basileuterus_delattrii
+│   ├── Phylloscopus_nesophilus
+│   ├── Pitta_concinna
+│   └── Larvivora_namiyei
+│
+├── Main_Code
+│   ├── dataset_checker.py
+│   ├── train_model.py
+│   └── predict.py
+│
+├── Model
+│   └── bird_model.pkl
+│
+└── Test_Audio
+    └── uji.mp3
 ```
-- dataset
-- main_code
-    - test_audio.py
-    - train_model.py
-    - predict.py
-- model
-    - test_audio
-- README.md
----
 
-## Requirement
-### Python Version
-```
-Python 3.11.9
-```
-
-### Library yang Digunakan
-Install seluruh library berikut:
-```bash
-pip install librosa
-pip install numpy
-pip install scikit-learn
-pip install joblib
-```
-
-atau sekaligus:
+## Library yang Digunakan
+Pastikan seluruh library berikut telah terinstal.
 ```bash
 pip install librosa numpy scikit-learn joblib
+```
+
+Library yang digunakan:
+- Librosa
+- NumPy
+- Scikit-Learn
+- Joblib
 ---
 
-## Dataset Requirement
-Format audio yang didukung:
+## Alur Kerja Program
 ```
-.mp3
-```
-
-Struktur dataset:
-```
-dataset
-- Pitta_concinna
-    - Pitta_Concinna_1.mp3
-    - Pitta_Concinna_2.mp3
-      ...
-- Larvivora_namiyei
-    - Larvivora_Namiyei_1.mp3
-    - Larvivora_Namiyei_2.mp3
-    ...
+Audio Burung (.mp3)
+          ↓
+    Normalize Audio
+          ↓
+      Trim Silence
+          ↓
+    MFCC (40 Fitur)
+          ↓
+ Train-Test Split (80 : 20)
+          ↓
+ Random Forest Classifier
+          ↓
+ Cross Validation (5 Fold)
+          ↓
+      Evaluasi Model
+          ↓
+     Simpan Model (.pkl)
+          ↓
+      Prediksi Audio
+          ↓
+      Confidence Score
+          ↓
+ Identifikasi Spesies Burung
 ---
 
-## Rekomendasi Dataset
-Untuk mendapatkan hasil klasifikasi yang lebih baik:
-- Gunakan audio berdurasi 5-10 detik.
-- Pastikan suara burung terdengar jelas.
-- Hindari audio yang terlalu banyak noise.
-- Hindari audio yang didominasi suara angin atau burung lain.
-- Gunakan minimal 8-10 audio per spesies.
-- Semakin banyak dataset, semakin baik performa model.
+## Informasi Dataset
+Dataset yang digunakan memiliki spesifikasi sebagai berikut:
+
+| Keterangan | Jumlah |
+|----------|----------|
+| Total Spesies Burung | 12 |
+| Total Audio | 237 |
+| Rata-rata Audio per Spesies | 19,75 |
+| Format Audio | .mp3 |
+| Sampling Rate | 22050 Hz |
 ---
 
-## Preprocessing Audio
-Jika audio yang diperoleh berdurasi panjang (20 detik hingga 1 menit), disarankan untuk:
-1. Memotong audio menjadi beberapa clip.
-2. Mengambil bagian yang memiliki suara burung paling jelas.
-3. Menggunakan durasi sekitar 5-10 detik setiap clip.
+## Rekomendasi Dataset Audio
+Agar memperoleh hasil prediksi yang optimal, audio yang digunakan disarankan memiliki karakteristik berikut:
+- Durasi audio 1 - 2 detik.
+- Suara burung terdengar jelas.
+- Noise atau suara latar belakang seminimal mungkin.
+- Menggunakan format .mp3.
+- Memiliki sampling rate 22050 Hz.
+---
 
-Contoh:
-```
-Audio Asli:
-60 detik
-↓
-Dipotong menjadi:
-- 8 detik
-- 7 detik
-- 9 detik
-- 10 detik
-```
-Metode ini akan:
-- Mengurangi noise.
-- Memperbanyak jumlah data training.
-- Meningkatkan akurasi model.
+## Performa Model
+Berdasarkan hasil pelatihan model, diperoleh hasil evaluasi sebagai berikut:
+
+| Metode Evaluasi | Hasil |
+|-----------------|-------|
+| Accuracy Score | 97,92% |
+| Cross Validation Score | 89,42% |
+
+Hasil pengujian tambahan:
+- Tingkat keberhasilan prediksi pada audio uji yang digunakan mencapai 100%.
+> Catatan: Hasil pengujian dapat berbeda tergantung kualitas audio yang digunakan.
 ---
 
 ## Cara Menjalankan Program
-### 1. Testing Dataset
-Masuk ke folder:
-```
-main_code
-```
-Kemudian jalankan:
-```bash
-python test_audio.py
-```
-Program akan mengecek seluruh file audio pada dataset.
 
+### 1. Mengecek Dataset
+Jalankan perintah berikut:
+```bash
+python dataset_checker.py
+```
+
+Program akan melakukan:
+- Validasi seluruh file audio.
+- Menampilkan durasi audio.
+- Menampilkan sampling rate.
+- Menampilkan jumlah audio pada masing-masing spesies.
+- Menampilkan ringkasan dataset.
 ---
-### 2. Training Model
-Masuk ke folder:
-```
-main_code
-```
-Jalankan:
+
+### 2. Melatih Model
+Jalankan perintah berikut:
 ```bash
 python train_model.py
 ```
 
-Output:
-```
-Training berhasil!
-Model berhasil disimpan!
-```
-File model akan disimpan pada:
-```
-model/bird_model.pkl
----
+Program akan melakukan:
+- Membaca seluruh dataset.
+- Melakukan ekstraksi fitur MFCC.
+- Melatih model Random Forest.
+- Mengevaluasi performa model.
+- Menyimpan model secara otomatis.
 
-### 3. Melakukan Prediksi
-Masukkan file audio yang ingin diuji ke dalam folder:
+Output yang dihasilkan:
 ```
-test_audio
+bird_model.pkl
 ```
+File model akan tersimpan pada folder:
+```
+model/
+```
+
+### 3. Menguji Audio Burung
+Masukkan audio yang ingin diuji ke dalam folder berikut:
+```
+test_audio/
+```
+
 Contoh:
 ```
-test_audio
-↓
+test_audio/
 uji.mp3
 ```
+
 Kemudian jalankan:
 ```bash
 python predict.py
 ---
 
-## Contoh Output
+## Contoh Hasil Prediksi
 ```
-====================================
+==========================================
 BIRD SPECIES RECOGNITION
-====================================
+==========================================
+
 Scientific Name :
 Pitta_concinna
+
 
 Common Name :
 Ornate Pitta
 
+
+Prediction Status :
+KNOWN BIRD SPECIES
+
+
 Confidence Score :
-96.45 %
-====================================
+91.52 %
+
+==========================================
+```
+
 ---
 
-## Unknown Bird Species Detection
-Jika confidence score berada di bawah threshold tertentu (misalnya 70%), maka sistem dapat memberikan output:
-```
-Unknown Bird Species
-```
+## Deteksi Spesies Burung yang Tidak Dikenali
+Apabila audio yang dimasukkan bukan merupakan salah satu dari 12 spesies pada dataset, maka program akan menampilkan:
 
-Contoh:
 ```
-====================================
-BIRD SPECIES RECOGNITION
-====================================
 Prediction :
-Unknown Bird Species
+UNKNOWN BIRD SPECIES
 
 Confidence Score :
-43.26 %
-====================================
+18.45 %
 ```
 
-Hal ini dilakukan agar sistem tidak memaksakan klasifikasi terhadap audio yang berada di luar dataset.
+Fitur ini memungkinkan program untuk mengidentifikasi bahwa audio yang diberikan tidak sesuai dengan spesies yang telah dipelajari oleh model.
 ---
 
-## Alur Kerja Sistem
-```
-Input Audio
-      ↓
-Audio Processing
-      ↓
-Feature Extraction (MFCC)
-      ↓
-Machine Learning Training
-      ↓
-Model Generation
-      ↓
-Input Audio Baru
-      ↓
-Feature Extraction
-      ↓
-Prediction
-      ↓
-Confidence Score
-      ↓
-Known Species / Unknown Species
+## Catatan Penggunaan
+Untuk memperoleh hasil prediksi yang lebih akurat, disarankan untuk:
+- Menggunakan audio yang memiliki suara burung yang jelas.
+- Menggunakan durasi audio sekitar 1 - 2 detik.
+- Meminimalkan noise pada audio.
+- Menggunakan karakteristik audio yang serupa dengan dataset pelatihan.
+- Menggunakan format file .mp3.
 ---
 
-## Metode yang Digunakan
-### Audio Processing
-Library:
+## Pengembangan Selanjutnya
+Beberapa pengembangan yang dapat dilakukan pada proyek ini antara lain:
+- Prediksi beberapa audio sekaligus (Batch Prediction).
+- Pembuatan antarmuka grafis (GUI).
+- Visualisasi Spectrogram suara burung.
+- Implementasi Deep Learning (CNN).
+- Prediksi suara burung secara real-time.
+- Pengembangan aplikasi berbasis mobile atau web.
+---
+
+## Penulis
+Proyek Bird Species Recognition dikembangkan menggunakan:
+- Python 3.11
 - Librosa
-
-### Feature Extraction
-Metode:
-- MFCC (Mel Frequency Cepstral Coefficients)
-
-### Machine Learning
-Algoritma:
+- NumPy
+- Scikit-Learn
 - Random Forest Classifier
-atau
-- K-Nearest Neighbors (KNN)
-
-### Model Saving
-Library:
-- Joblib
----
+- MFCC (Mel Frequency Cepstral Coefficients)
